@@ -1,0 +1,24 @@
+<h1 class='text-center'>Wikis</h1>
+<br />
+<table class='table-hover text-center'>
+    <% @wikis.each do |wiki| %>
+        <tr class='text-center'>
+            <td>
+                <%= link_to wiki.title, wiki %>
+            </td>
+            <% if user_signed_in? %>
+                <td>
+                    <%= link_to "Edit", edit_wiki_path(wiki), class: 'btn btn-primary' %>  
+                </td>
+                <td>
+                    <%= link_to "Delete", wiki, method: :delete, class: 'btn btn-danger', redirect_to: :index, data: { confirm: 'Are you sure you want to delete this wiki?' } %>
+                </td>
+            <% end %>
+        </tr>
+    <% end %>
+</table>
+<% if user_signed_in? %>
+    <div class='text-center'>
+        <%= link_to "New Wiki", new_wiki_path, class: 'btn btn-success' %>
+    </div>
+<% end %>
