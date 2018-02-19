@@ -20,7 +20,7 @@ users = User.all
    Wiki.create!(
         user: users.sample,
         title: Faker::Lorem.sentence,
-        body: Faker::Markdown.headers + "\r" + Faker::Markdown.ordered_list + "\r" + Faker::Markdown.emphasis + "\r" + Faker::Markdown.random,
+        body: Faker::Lorem.paragraph + "<br /><br />" + Faker::Lorem.paragraph + "<br /><br />" + Faker::Lorem.paragraph + "<br /><br />" + Faker::Lorem.paragraph + "<br /><br />" + Faker::Lorem.paragraph + "<br /><br />" + Faker::Lorem.paragraph + "<br /><br />" + Faker::Lorem.paragraph + "<br /><br />" + Faker::Lorem.paragraph + "<br /><br />" + Faker::Lorem.paragraph + "<br /><br />" + Faker::Lorem.paragraph,
         private: false
     ) 
 end
