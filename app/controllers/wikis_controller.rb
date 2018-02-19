@@ -1,6 +1,8 @@
 class WikisController < ApplicationController
   skip_before_action :verify_authenticity_token
   
+  after_action :verify_authorized, except: [:index, :show]
+  
   def index
     @wikis = Wiki.all
   end
@@ -56,6 +58,11 @@ class WikisController < ApplicationController
   end
   
   private
+  
+  def set_wiki
+    @wiki = Wiki.find(params[:id])
+    authorize @article
+  end
   
   def wiki_params
     params.require(:wiki).permit(:title, :body, :private)
