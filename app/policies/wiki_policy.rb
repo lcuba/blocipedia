@@ -1,5 +1,5 @@
 class WikiPolicy < ApplicationPolicy
-  
+
   class Scope < Scope
     def resolve
       scope.where(published)
