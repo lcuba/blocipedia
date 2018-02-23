@@ -2,7 +2,7 @@
 <br />
 
 <div class='row'>
-    <div class='col-md-8'>
+    <div class='col-md-12'>
         <%= form_for @wiki do |f| %>
             <div class="form-group">
                 <%= f.label :title %><br />
@@ -10,14 +10,16 @@
             </div>
             <div class="form-group">
                 <%= f.label :body %><br />
-                <%= f.text_area :body, rows: 40, class: 'form-control' %>
+                <%= f.text_area :body, rows: 20, class: 'form-control' %>
             </div>
-            <div class='form-check'>
-                <%= f.check_box :private, class: 'form-check-input' %>
-                <%= f.label :private, class: 'form-check-label' do %> 
-                Private Wiki
-                <% end %>
-            </div>
+            <% unless current_user.role == 'standard' %>
+                <div class='form-check'>
+                    <%= f.check_box :private, class: 'form-check-input' %>
+                    <%= f.label :private, class: 'form-check-label' do %> 
+                    Private Wiki
+                    <% end %>
+                </div>
+            <% end %>
             <div class='form-group'>
                 <%= f.submit "Create", class: 'btn btn-success' %>
             </div>
