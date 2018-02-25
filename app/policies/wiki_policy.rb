@@ -5,7 +5,7 @@ class WikiPolicy < ApplicationPolicy
       scope.where(published)
     end
     
-    def
+    def index
       true
     end
     
