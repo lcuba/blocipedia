@@ -10,19 +10,21 @@
     </thead>
     <tbody>
         <% @wikis.each do |wiki| %>
-            <tr class='text-center'>
-                <td>
-                    <h4><%= link_to wiki.title, wiki %></h4>
-                </td>
-                <% if user_signed_in? %>
+            <% if !wiki.private || (current_user.admin? || current_user.premium?)%>
+                <tr class='text-center'>
                     <td>
-                        <%= link_to "Edit", edit_wiki_path(wiki), class: 'btn btn-primary' %>  
+                        <h4><%= link_to wiki.title, wiki %></h4>
                     </td>
-                    <td>
-                        <%= link_to "Delete", wiki, method: :delete, class: 'btn btn-danger', redirect_to: :index, data: { confirm: 'Are you sure you want to delete this wiki?' } %>
-                    </td>
-                <% end %>
-            </tr>
+                    <% if user_signed_in? %>
+                        <td>
+                            <%= link_to "Edit", edit_wiki_path(wiki), class: 'btn btn-primary' %>  
+                        </td>
+                        <td>
+                            <%= link_to "Delete", wiki, method: :delete, class: 'btn btn-danger', redirect_to: :index, data: { confirm: 'Are you sure you want to delete this wiki?' } %>
+                        </td>
+                    <% end %>
+                </tr>
+            <% end %>
         <% end %>
     </tbody>
 </table>

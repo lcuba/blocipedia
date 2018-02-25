@@ -16,7 +16,7 @@ require 'faker'
 end
 users = User.all
 
-25.times do
+=begin 25.times do
    Wiki.create!(
         user: users.sample,
         title: Faker::Lorem.sentence,
@@ -24,16 +24,16 @@ users = User.all
         private: false
     ) 
 end
-
-=begin 5.times do
+=end
+5.times do
     Wiki.create!(
         user: users.sample,
-        title: Faker::Lorem.sentence,
+        title: Faker::Lorem.sentence + " - Private",
         body: Faker::Lorem.paragraph + "<br /><br />" + Faker::Lorem.paragraph + "<br /><br />" + Faker::Lorem.paragraph + "<br /><br />" + Faker::Lorem.paragraph + "<br /><br />" + Faker::Lorem.paragraph + "<br /><br />" + Faker::Lorem.paragraph + "<br /><br />" + Faker::Lorem.paragraph + "<br /><br />" + Faker::Lorem.paragraph + "<br /><br />" + Faker::Lorem.paragraph + "<br /><br />" + Faker::Lorem.paragraph,
         private: true
     ) 
     end
-=end
+
 
 puts "Seed finished"
 puts "#{User.count} users created"
