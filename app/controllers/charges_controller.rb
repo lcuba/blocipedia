@@ -1,6 +1,5 @@
 class ChargesController < ApplicationController
   def create
-    @user = current_user
     
     # Creates a Stripe Customer object, for associating with the charge
     
@@ -16,7 +15,7 @@ class ChargesController < ApplicationController
       currency: 'usd'
     )
     
-    @user.update_attributes(role: 'premium')
+    current_user.update_attributes(role: 'premium')
     
     flash[:notice] = "Thanks for your purchase of premium membership, #{current_user.email}. You can now create private wikis."
     
