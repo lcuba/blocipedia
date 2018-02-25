@@ -4,11 +4,20 @@ class WikisController < ApplicationController
   after_action :verify_authorized, except: [:index, :show]
   
   def index
-    @wikis = Wiki.all
+    @wikis = Wiki.visible_to(current_user)
   end
 
   def show
     @wiki = Wiki.find(params[:id])
+    
+    unless (@wiki.private == false || current_user.premium? || current_user.admin?)
+      flash[:alert] = "Premium membership is required to view private wikis."
+      if current_user
+        redirect_to new_charge_path
+      else
+        redirect_to new_user_registration_path
+      end
+    end
   end
 
   def new
@@ -33,6 +42,15 @@ class WikisController < ApplicationController
   def edit
     @wiki = Wiki.find(params[:id])
     authorize @wiki
+    
+    unless (@wiki.private == false || current_user.premium? || current_user.admin?)
+      flash[:alert] = "You must have premium membership as well as be a listed collaborator to edit private wikis."
+      if current_user
+        redirect_to new_charge_path
+      else
+        redirect_to new_user_registration_path
+      end
+    end
   end
   
   def update

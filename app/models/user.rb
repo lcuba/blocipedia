@@ -10,4 +10,8 @@ class User < ApplicationRecord
   after_initialize {self.role ||= :standard}
   
   enum role: [:standard, :premium, :admin]
+  
+  def reset_to_public
+    self.wikis.each {|wiki| puts wiki.make_public}
+  end
 end
