@@ -5,20 +5,24 @@ class WikiPolicy < ApplicationPolicy
       scope.where(published)
     end
     
+    def
+      true
+    end
+    
     def new? 
       create?
     end
     
     def create? 
-      user.present?
+      user.present
     end
     
     def update?
-      user.present? 
+      create?
     end
     
     def destroy? 
-      user.present?
+      create?
     end
   end
 end
