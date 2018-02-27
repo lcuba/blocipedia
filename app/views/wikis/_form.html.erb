@@ -1,0 +1,3 @@
+<%= f.label @wiki.collaborators %>
+<%= f.text_field @wiki.collaborators, class: 'form-control', value: @wiki.collaborators.map(&:email).join(', '),
+placeholder: "Please enter the email addresses of the collaborators you wish to add seperated by commas" %>

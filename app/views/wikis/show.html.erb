@@ -1,7 +1,14 @@
 <h1 class='text-center'>
     <%= @wiki.title %><br />
     <small>
-        by <%= @wiki.user.email %>
+        by <%= @wiki.user.email %> <br />
+        <small>Collaborators:
+        <% unless @wiki.collaborators.empty? %>
+            <% @wiki.collaborators.each do |collab| %>
+                <%= collaborator.email %>
+            <% end %>
+        <% end %>
+        </small>
     </small>
 </h1>
 

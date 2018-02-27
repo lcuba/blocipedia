@@ -8,7 +8,7 @@
 
 require 'faker'
 
-10.times do
+7.times do
     User.create!(
         email: Faker::Internet.email,
         password: Faker::Internet.password
@@ -16,7 +16,31 @@ require 'faker'
 end
 users = User.all
 
-=begin 25.times do
+standard_user = User.new(
+    email: "standard@standard.com",
+    password: "asdfjkl;",
+    role: "standard"
+)
+standard_user.skip_confirmation!
+standard_user.save!
+
+premium_user = User.new(
+    email: "premium@premium.com",
+    password: "asdfjkl;",
+    role: "premium"
+)
+premium_user.skip_confirmation!
+premium_user.save!
+
+admin_user = User.new(
+    email: "admin@admin.com",
+    password: "asdfjkl;",
+    role: "admin"
+)
+admin_user.skip_confirmation!
+admin_user.save!
+
+20.times do
    Wiki.create!(
         user: users.sample,
         title: Faker::Lorem.sentence,
@@ -24,7 +48,7 @@ users = User.all
         private: false
     ) 
 end
-=end
+
 5.times do
     Wiki.create!(
         user: users.sample,

@@ -3,7 +3,7 @@
 <%= form_tag charges_path do %>
     <div class='col-md-10'>
         <h1>Upgrade to Premium</h1>
-        <p>For a single payment of $15, you gain the ability on this account to create private wikis and add collaborators</p>
+        <p>For a single payment of $15, you gain the ability on this account to create private wikis only accessible to you and a group of collaborators you'll have the ability to pick</p>
         <br />
         <script class='stripe-button' src="https://checkout.stripe.com/checkout.js" data-key="<%= @stripe_btn_data[:key] %>" 
         data-amount="<%= @stripe_btn_data[:amount] %>" data-description="<%= @stripe_btn_data[:description] %>" ></script>

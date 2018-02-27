@@ -10,7 +10,7 @@
     </thead>
     <tbody>
         <% @wikis.each do |wiki| %>
-            <% if !wiki.private || (current_user.admin? || current_user.premium?)%>
+            <% if !wiki.private || wiki.user_id == current_user.id || current_user.admin? %>
                 <tr class='text-center'>
                     <td>
                         <h4><%= link_to wiki.title, wiki %></h4>
