@@ -18,7 +18,7 @@ class WikisController < ApplicationController
       
       unless (@wiki.private == false) || @wiki.user == current_user || collaborators.include?(current_user.email) || current_user.admin?
         flash[:alert] = "You are not authorized to view this wiki."
-        redirect_to :index
+        render :index
       end
     else
       flash[:alert] = "You are not authorized to view this wiki."

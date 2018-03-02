@@ -5,7 +5,7 @@
         <small>Collaborators:
         <% unless @wiki.collaborators.empty? %>
             <% @wiki.collaborators.each do |collab| %>
-                <%= collaborator.email %>
+                <%= collab.email %>
             <% end %>
         <% end %>
         </small>

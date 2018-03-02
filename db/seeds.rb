@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 require 'faker'
-
+=begin
 7.times do
     User.create!(
         email: Faker::Internet.email,
@@ -39,7 +39,15 @@ admin_user = User.new(
 )
 admin_user.skip_confirmation!
 admin_user.save!
-
+=end
+dummy_user = User.new(
+    email: "dummy@dummy.com",
+    password: "asdfjkl;",
+    role: "standard"
+)
+dummy_user.skip_confirmation!
+dummy_user.save!
+=begin
 20.times do
    Wiki.create!(
         user: users.sample,
@@ -62,4 +70,4 @@ end
 puts "Seed finished"
 puts "#{User.count} users created"
 puts "#{Wiki.count} wikis created"
-
+=end
