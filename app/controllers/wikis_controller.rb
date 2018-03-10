@@ -4,26 +4,20 @@ class WikisController < ApplicationController
   after_action :verify_authorized, except: [:index, :show]
   
   def index
-    @wikis = policy_scope(Wiki)
+    if current_user.try(:admin?)
+      @wikis = Wiki.all
+    elsif current_user.try(:premium?)
+      @wikis = Wiki.where(private: false) | current_user.wiki_collaborations | current_user.wikis
+    elsif current_user.try(:standard?)
+      @wikis = Wiki.where(private: false) | current_user.wiki_collaborations
+    else
+      @wikis = Wiki.where(private: false)
+    end
   end
 
   def show
     @wiki = Wiki.find(params[:id])
-    
-    if current_user.present?
-      collaborators = []
-      @wiki.collaborators.each do |collaborator|
-        collaborators << collaborator.email
-      end
-      
-      unless (@wiki.private == false) || @wiki.user == current_user || collaborators.include?(current_user.email) || current_user.admin?
-        flash[:alert] = "You are not authorized to view this wiki."
-        render :index
-      end
-    else
-      flash[:alert] = "You are not authorized to view this wiki."
-      redirect_to new_user_registration_path
-    end
+    authorize @wiki
   end
 
   def new
@@ -37,7 +31,6 @@ class WikisController < ApplicationController
     authorize @wiki
     
     if @wiki.save
-      @wiki.collaborators = Collaborator.assign_collaborators(params[:wiki][:collaborators])
       flash[:notice] = "Wiki was saved successfully."
       redirect_to @wiki
     else
@@ -48,6 +41,7 @@ class WikisController < ApplicationController
 
   def edit
     @wiki = Wiki.find(params[:id])
+    @user_emails = User.where.not(id: current_user.id || @wiki.users.pluck(:id)).map(&:email)
     authorize @wiki
   end
   
@@ -56,8 +50,7 @@ class WikisController < ApplicationController
     @wiki.assign_attributes(wiki_params)
     authorize @wiki
     
-    if @wiki.save && (@wiki.user == current_user || current_user.admin?)
-      @wiki.collaborators = Collaborator.assign_collaborators(params[:wiki][:collaborators])
+    if @wiki.save
       flash[:notice] = "Wiki was updated successfully."
       redirect_to @wiki
     else

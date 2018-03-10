@@ -1,0 +1,31 @@
+<div class='row'>
+    <% if current_user.admin? || current_user.premium? %>
+        <div class='field'>
+            <%= form_for [@wiki, Collaborator.new] do |f| %>
+                <%= f.label :collaborators %>
+                <%= f.select :user, options_for_select(@user_emails, :selected => params[:user]) %><br />
+                <%= f.submit 'Save', class: 'btn btn-success' %>
+            <% end %>
+            
+            <% if @wiki.users.any? %>
+                <h4>Current Collaborators</h4>
+                <% @wiki.users.each do |user| %>
+                    <small>
+                        <%= user.email %> | 
+                        <%= link_to "X", wiki_collaborator_path(user_id: @user.id, wiki_id: @wiki.id), method: :delete %>
+                    </small>
+                <% end %>
+            <% end %>    
+        </div>
+    <% else %>
+        <h4>Current Collaborators</h4>
+        <% @wiki.users.each do |user| %>
+            <% if user.email == current_user.email %>
+                <small>
+                    <%= current_user.email %> | 
+                    <%= link_to "X", wiki_collaborator_path(user_id: @user.id, wiki_id: @wiki.id), method: :delete %>
+                </small>
+            <% end %>
+        <% end %>
+    <% end %>
+</div>

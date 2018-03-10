@@ -1,14 +1,7 @@
 <h1 class='text-center'>
     <%= @wiki.title %><br />
     <small>
-        by <%= @wiki.user.email %> <br />
-        <small>Collaborators:
-        <% unless @wiki.collaborators.empty? %>
-            <% @wiki.collaborators.each do |collab| %>
-                <%= collab.email %>
-            <% end %>
-        <% end %>
-        </small>
+        by <%= @wiki.user.email %>
     </small>
 </h1>
 
@@ -19,7 +12,7 @@
 </div>
 <% if user_signed_in? %>
     <div class='text-center'>
-        <%= link_to "Edit Wiki", edit_wiki_path, class: 'btn btn-primary' %> | 
+        <%= link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-success' %>
         <%= link_to "Delete", @wiki, method: :delete, class: 'btn btn-danger', redirect_to: :index, data: { confirm: 'Are you sure you want to delete this wiki?' } %>
     </div>
 <% end %>

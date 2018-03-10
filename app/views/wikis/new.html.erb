@@ -12,16 +12,14 @@
                 <%= f.label :body %><br />
                 <%= f.text_area :body, rows: 20, class: 'form-control' %>
             </div>
-            <% unless current_user.role == 'standard' %>
+            <% if current_user.admin? || current_user.premium? || @wiki.users.include?(current_user) %>
                 <div class='form-check'>
                     <%= f.check_box :private, class: 'form-check-input' %>
                     <%= f.label :private, class: 'form-check-label' do %> 
                     Private Wiki
                     <% end %>
                 </div>
-                <div class="form-group">
-                    <%= render partial: 'form', locals: {f: f, collaborators: @wiki.collaborators} %>
-                </div>
+                <%= render partial: 'collaborators/collaborator_form' %>
             <% end %>
             <div class='form-group'>
                 <%= f.submit "Create", class: 'btn btn-success' %>

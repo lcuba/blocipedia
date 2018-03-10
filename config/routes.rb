@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'collaborators/edit'
+
+  get 'collaborators/update'
+
+  get 'collaborators/destroy'
+
   get 'downgrade/new'
 
   get 'downgrade/create'
@@ -10,7 +16,9 @@ Rails.application.routes.draw do
   
   get 'welcome/about'
   
-  resources :wikis
+  resources :wikis do
+    resources :collaborators, only: [:create, :destroy]
+  end
   
   resources :charges, only: [:new, :create]
   

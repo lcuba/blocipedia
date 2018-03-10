@@ -1,7 +1,21 @@
 class WikiPolicy < ApplicationPolicy
+    attr_reader :user, :wiki
+    
+    def initialize(user, wiki)
+       @user = user
+       @wiki = wiki
+    end
 
     def index
       true
+    end
+    
+    def show?
+       wiki.user == user || user.try(:admin?) || wiki.private == false || wiki.users.include?(user) 
+    end
+    
+    def edit?
+        show?
     end
     
     def new? 
@@ -20,7 +34,7 @@ class WikiPolicy < ApplicationPolicy
       user.try(:admin?) || (@wiki.user == user)
     end
     
-    class Scope
+=begin    class Scope
       attr_reader :user, :scope
       
       def initialize(user, scope)
@@ -51,4 +65,5 @@ class WikiPolicy < ApplicationPolicy
        wikis
     end
   end
+=end
 end
