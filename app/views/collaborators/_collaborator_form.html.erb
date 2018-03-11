@@ -10,10 +10,9 @@
             <% if @wiki.users.any? %>
                 <h4>Current Collaborators</h4>
                 <% @wiki.users.each do |user| %>
-                    <small>
-                        <%= user.email %> | 
-                        <%= link_to "X", wiki_collaborator_path(user_id: @user.id, wiki_id: @wiki.id), method: :delete %>
-                    </small>
+                    <b><small>
+                        <%= user.email %> |<%= link_to "x", wiki_collaborator_path(user_id: user.id, wiki_id: @wiki.id), method: :delete %>|   
+                    </small></b>
                 <% end %>
             <% end %>    
         </div>
@@ -21,10 +20,9 @@
         <h4>Current Collaborators</h4>
         <% @wiki.users.each do |user| %>
             <% if user.email == current_user.email %>
-                <small>
-                    <%= current_user.email %> | 
-                    <%= link_to "X", wiki_collaborator_path(user_id: @user.id, wiki_id: @wiki.id), method: :delete %>
-                </small>
+                <b><small>
+                    <%= current_user.email %> |<%= link_to "x", wiki_collaborator_path(user_id: user.id, wiki_id: @wiki.id), method: :delete %>|   
+                </small></b>
             <% end %>
         <% end %>
     <% end %>
