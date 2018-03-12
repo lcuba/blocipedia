@@ -1,10 +1,9 @@
 <div class='row'>
     <% if current_user.admin? || current_user.premium? %>
         <div class='field'>
-            <%= form_for [@wiki, Collaborator.new] do |f| %>
-                <%= f.label :collaborators %>
-                <%= f.select :user, options_for_select(@user_emails, :selected => params[:user]) %><br />
-                <%= f.submit 'Save', class: 'btn btn-success' %>
+            <%= f.fields_for [@wiki, Collaborator.new] do |c| %>
+                <%= c.label :collaborators %>
+                <%= c.select :user, options_for_select(@user_emails, :selected => params[:user]) %><br />
             <% end %>
             
             <% if @wiki.users.any? %>

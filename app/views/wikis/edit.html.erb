@@ -19,12 +19,11 @@
                     Private Wiki
                     <% end %>
                 </div>
-                <%= render partial: 'collaborators/collaborator_form' %>
-            <% else %>
-                <div class='form-group'>
-                    <%= f.submit "Create", class: 'btn btn-success' %>
-                </div>
+                <%= render partial: 'collaborators/collaborator_form', locals: {f: f} %>
             <% end %>
+            <div class='form-group'>
+                <%= f.submit "Create", class: 'btn btn-success' %>
+            </div>
         <% end %>
     </div>
 </div>

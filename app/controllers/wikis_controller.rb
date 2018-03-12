@@ -22,6 +22,8 @@ class WikisController < ApplicationController
 
   def new
     @wiki = Wiki.new
+    @wiki.collaborators.build
+    @user_emails = User.where.not(id: current_user.id || @wiki.users.pluck(:id)).map(&:email)
     authorize @wiki
   end
   
@@ -41,6 +43,7 @@ class WikisController < ApplicationController
 
   def edit
     @wiki = Wiki.find(params[:id])
+    @wiki.collaborators.build
     @user_emails = User.where.not(id: current_user.id || @wiki.users.pluck(:id)).map(&:email)
     authorize @wiki
   end
@@ -79,8 +82,10 @@ class WikisController < ApplicationController
     authorize @wiki
   end
   
+  private
+  
   def wiki_params
-    params.require(:wiki).permit(:title, :body, :private)
+    params.require(:wiki).permit(:title, :body, :private, collaborator: [:user_id, :wiki_id])
   end 
   
 end
