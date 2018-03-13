@@ -4,15 +4,7 @@ class WikisController < ApplicationController
   after_action :verify_authorized, except: [:index, :show]
   
   def index
-    if current_user.try(:admin?)
-      @wikis = Wiki.all
-    elsif current_user.try(:premium?)
-      @wikis = Wiki.where(private: false) | current_user.wiki_collaborations | current_user.wikis
-    elsif current_user.try(:standard?)
-      @wikis = Wiki.where(private: false) | current_user.wiki_collaborations
-    else
-      @wikis = Wiki.where(private: false)
-    end
+    authorize_index
   end
 
   def show
@@ -22,7 +14,6 @@ class WikisController < ApplicationController
 
   def new
     @wiki = Wiki.new
-    @wiki.collaborators.build
     @user_emails = User.where.not(id: current_user.id || @wiki.users.pluck(:id)).map(&:email)
     authorize @wiki
   end
@@ -43,7 +34,6 @@ class WikisController < ApplicationController
 
   def edit
     @wiki = Wiki.find(params[:id])
-    @wiki.collaborators.build
     @user_emails = User.where.not(id: current_user.id || @wiki.users.pluck(:id)).map(&:email)
     authorize @wiki
   end
@@ -85,7 +75,7 @@ class WikisController < ApplicationController
   private
   
   def wiki_params
-    params.require(:wiki).permit(:title, :body, :private, collaborator: [:user_id, :wiki_id])
+    params.require(:wiki).permit(:title, :body, :private)
   end 
   
 end

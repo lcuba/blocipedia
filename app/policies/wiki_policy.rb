@@ -7,11 +7,11 @@ class WikiPolicy < ApplicationPolicy
     end
 
     def index
-      true
+        true
     end
     
     def show?
-       wiki.user == user || user.try(:admin?) || wiki.private == false || wiki.users.include?(user) 
+        wiki.user == user || user.try(:admin?) || wiki.private == false || wiki.users.include?(user) 
     end
     
     def edit?
@@ -19,19 +19,19 @@ class WikiPolicy < ApplicationPolicy
     end
     
     def new? 
-      create?
+        create?
     end
     
     def create? 
-      user.present?
+        user.present?
     end
     
     def update?
-      create?
+        create?
     end
     
     def destroy? 
-      user.try(:admin?) || (@wiki.user == user)
+        user.try(:admin?) || (@wiki.user == user)
     end
     
 =begin    class Scope

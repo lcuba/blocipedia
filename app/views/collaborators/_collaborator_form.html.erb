@@ -1,28 +1,28 @@
-<div class='row'>
-    <% if current_user.admin? || current_user.premium? %>
-        <div class='field'>
-            <%= f.fields_for [@wiki, Collaborator.new] do |c| %>
-                <%= c.label :collaborators %>
-                <%= c.select :user, options_for_select(@user_emails, :selected => params[:user]) %><br />
-            <% end %>
+<% if current_user.admin? || current_user.premium? %>
+    <div class='field'>
+        <%= form_for [@wiki, Collaborator.new] do |c| %>
+            <%= c.label :collaborators %><br />
+            <%= c.select :user, options_for_select(@user_emails, :selected => params[:user], class: 'form-control') %><br /><br />
+            <%= c.submit 'Add Collaborator', class: 'btn btn-primary' %>
+        <% end %>
             
-            <% if @wiki.users.any? %>
-                <h4>Current Collaborators</h4>
-                <% @wiki.users.each do |user| %>
-                    <b><small>
-                        <%= user.email %> |<%= link_to "x", wiki_collaborator_path(user_id: user.id, wiki_id: @wiki.id), method: :delete %>|   
-                    </small></b>
-                <% end %>
-            <% end %>    
-        </div>
-    <% else %>
-        <h4>Current Collaborators</h4>
-        <% @wiki.users.each do |user| %>
-            <% if user.email == current_user.email %>
-                <b><small>
-                    <%= current_user.email %> |<%= link_to "x", wiki_collaborator_path(user_id: user.id, wiki_id: @wiki.id), method: :delete %>|   
-                </small></b>
+        <% if @wiki.users.any? %>
+            <h3>Current Collaborators</h3>
+            <% @wiki.users.each do |user| %>
+                <b><p>
+                    <%= user.email %> |<%= link_to "x", wiki_collaborator_path(user_id: user.id, wiki_id: @wiki.id), method: :delete %>|   
+                </p></b>
             <% end %>
+        <% end %>    
+    </div>
+<% else %>
+    <h3>Current Collaborators</h3>
+    <% @wiki.users.each do |user| %>
+        <% if user.email == current_user.email %>
+            <b><p>
+                <%= current_user.email %> |<%= link_to "x", wiki_collaborator_path(user_id: user.id, wiki_id: @wiki.id), method: :delete %>|   
+            </p></b>
         <% end %>
     <% end %>
-</div>
+<% end %>
+

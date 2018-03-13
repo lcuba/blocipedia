@@ -19,11 +19,11 @@
                     Private Wiki
                     <% end %>
                 </div>
-                <%= render partial: 'collaborators/collaborator_form', locals: {f: f} %>
             <% end %>
             <div class='form-group'>
-                <%= f.submit "Create", class: 'btn btn-success' %>
-            </div>
+                <%= f.submit "Update Wiki", class: 'btn btn-success' %>
+            </div><br />
         <% end %>
+        <%= render partial: 'collaborators/collaborator_form' %>
     </div>
 </div>

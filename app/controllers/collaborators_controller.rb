@@ -1,5 +1,5 @@
 class CollaboratorsController < ApplicationController
-  def update
+=begin  def update
       @wiki = Wiki.find(params[:wiki_id])
       authorize @wiki
       
@@ -11,7 +11,7 @@ class CollaboratorsController < ApplicationController
           render :edit
       end
   end
-  
+=end
   def create
     user = User.find_by_email(params[:collaborator][:user])
     @wiki = Wiki.find(params[:wiki_id])
