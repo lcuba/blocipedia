@@ -7,7 +7,7 @@ Rubypedia is a wiki-esque web application built in Rails5 by Lucas Cuba. Here yo
 
 This application uses several gems to provide these services, including pundit, devise, and stripe.
 
-A link to the deployed application can be found here: 
+A link to the deployed application can be found here: https://rubypedia-lcuba.herokuapp.com/
 
 ### User Role Information
 
