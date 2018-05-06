@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'collaborators/edit'
 
-  get 'collaborators/update'
-
-  get 'collaborators/destroy'
 
   get 'downgrade/new'
 

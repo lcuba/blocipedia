@@ -29,5 +29,7 @@ For testing, I have created three dummy accounts:
 All of these accounts have the same dummy password, "asdfjkl;", for testing. Simply sign-in on these accounts to test out different features. If you want to test out upgrading/downgrading your account, when prompted use the dummy information "4242424242424242" as the card number, "standard@standard.com" as the email, any month/year combo that isn't expired, and a random CVC 3-digit number.
 Feel free to also test out the email confirmation system with an email address of your own, just keep in mind that you may need to check your spam folder for the confirmation email. 
 
+Please note that when you are creating a private post as an admin or premium user, you'll have to edit the post after creating it to add collaborators. 
+
 Anyway, thanks for checking out Rubypedia!
 
