@@ -15,6 +15,8 @@ require 'faker'
     )
 end
 users = User.all
+users.skip_confirmation!
+users.save!
 
 standard_user = User.new(
     email: "standard@standard.com",
