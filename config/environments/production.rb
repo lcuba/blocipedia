@@ -88,4 +88,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  
+  onfig.action_mailer.default_url_options = { :host => 'https://rubypedia-lcuba.herokuapp.com/' }
 end
