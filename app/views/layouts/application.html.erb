@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Blocipedia</title>
+    <title>Rubypedia</title>
     <%= csrf_meta_tags %>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -12,7 +12,7 @@
     
     <div class='container'>
       <ul class="nav nav-tabs pull-left">
-        <li><%= link_to "Blocipedia", root_path %></li>
+        <li><%= link_to "Rubypedia", root_path %></li>
         <li><%= link_to "About", welcome_about_path %></li>
         <li><%= link_to "Wikis", wikis_path %></li>
         <% if user_signed_in? %>

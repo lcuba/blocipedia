@@ -9,11 +9,11 @@ class ApplicationController < ActionController::Base
   private
       
     def authorize_index
-        if current_user.admin?
+        if current_user.try(:admin?)
             @wikis = Wiki.all
-        elsif current_user.premium?
+        elsif current_user.try(:premium?)
             @wikis = Wiki.where(private: false) | current_user.wiki_collaborations | current_user.wikis
-        elsif current_user.standard?
+        elsif current_user.try(:standard?)
             @wikis = Wiki.where(private: false) | current_user.wiki_collaborations
         else
             @wikis = Wiki.where(private: false)
